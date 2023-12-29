@@ -20,7 +20,7 @@ fn main() {
 
     for key in query_keys {
         let value = {
-            match bin_search(&arr, key, 0, arr.len() - 1) {
+            match bin_search_with_duplicates(&arr, key, 0, arr.len() - 1) {
                 Some(val) => val as i32,
                 None => -1,
             }
@@ -47,10 +47,32 @@ fn bin_search(arr: &[i32], key: i32, left: usize, right: usize) -> Option<usize>
         return Some(mid);
     }
 }
+fn bin_search_with_duplicates(arr: &[i32], key: i32, left: usize, right: usize) -> Option<usize> {
+    if left > right {
+        return None;
+    }
+
+    let length = right - left;
+    let mid = left + length / 2;
+    if arr[mid] < key {
+        bin_search_with_duplicates(arr, key, mid + 1, right)
+    } else if arr[mid] > key {
+        if mid == 0 {
+            return None;
+        }
+        bin_search_with_duplicates(arr, key, left, mid - 1)
+    } else {
+        if mid == 0 || arr[mid - 1] != key {
+            return Some(mid);
+        } else {
+            bin_search_with_duplicates(arr, key, left, mid - 1)
+        }
+    }
+}
 
 #[cfg(test)]
 mod tests {
-    use crate::bin_search;
+    use crate::{bin_search, bin_search_with_duplicates};
 
     #[test]
     fn binary_search_given_search_key_when_called_with_array_containing_key_then_returns_index() {
@@ -60,6 +82,20 @@ mod tests {
 
         // when
         let index = bin_search(&my_arr, key, 0, my_arr.len() - 1);
+
+        // then
+        assert_eq!(index, Some(4));
+    }
+
+    #[test]
+    fn binary_search_with_duplicates_given_search_key_when_called_with_array_containing_key_then_returns_index_of_first_occurance(
+    ) {
+        // given
+        let my_arr = [2, 4, 4, 4, 7, 7, 9];
+        let key = 7;
+
+        // when
+        let index = bin_search_with_duplicates(&my_arr, key, 0, my_arr.len() - 1);
 
         // then
         assert_eq!(index, Some(4));
