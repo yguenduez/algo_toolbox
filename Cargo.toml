@@ -12,3 +12,6 @@ name = "maximum_product"
 
 [[bin]]
 name = "binary_search"
+
+[[bin]]
+name = "majority_element"
