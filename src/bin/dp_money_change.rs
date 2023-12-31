@@ -71,6 +71,15 @@ mod tests {
     }
 
     #[test]
+    fn find_smallest_int_where_greedy_fails() {
+        let denoms = [1, 8, 20];
+        for money in 1..40 {
+            //           println!("{money}");
+            //            assert_eq!(db_coins(&denoms, money), greedy_coins(&denoms, money))
+        }
+    }
+
+    #[test]
     fn change_greedy_given_change_and_denominators_when_called_then_returns_optimal_number_of_coins(
     ) {
         // given
