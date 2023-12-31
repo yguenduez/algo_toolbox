@@ -15,3 +15,6 @@ name = "binary_search"
 
 [[bin]]
 name = "majority_element"
+
+[[bin]]
+name = "dp_money_change"
