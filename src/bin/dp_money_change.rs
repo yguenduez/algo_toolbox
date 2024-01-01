@@ -1,4 +1,12 @@
-fn main() {}
+use std::io::{stdin, BufRead};
+
+fn main() {
+    let mut i = stdin().lock().lines();
+    let money: u32 = i.next().unwrap().unwrap().parse().unwrap();
+
+    let denominators = [1, 3, 4];
+    print!("{}", db_coins(&denominators, money))
+}
 
 fn db_coins(denoms: &[u32], change: u32) -> u32 {
     let mut min_num_coins = vec![0];
